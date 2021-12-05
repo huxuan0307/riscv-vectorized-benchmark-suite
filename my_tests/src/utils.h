@@ -17,7 +17,17 @@ void test_result(Type *y, Type *y_ref, uint64_t nrows)
          if (nerrs == 100) break;
       }
    }
-   if (nerrs == 0) printf ("Result ok !!!\n");
+   if (nerrs == 0) {
+      printf ("Result ok !!!\n");
+      for (row=0; row<5; row++) {
+         printf("y[%ld]=%.16f != y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
+      }
+      printf("...\n");
+      for (row=rows-5; row<rows; row++) {
+         printf("y[%ld]=%.16f != y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
+      }
+   }
+   
 }
 
 #endif

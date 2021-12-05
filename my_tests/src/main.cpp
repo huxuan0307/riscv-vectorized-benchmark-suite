@@ -102,7 +102,10 @@ int main(int argc, char *argv[])
     // vfadd
     if (1) {
         test_2src_op<double, double, double>(vfadd_vv_64_ref, vfadd_vv_f64_vec);
-
+    }
+    // vfsub
+    if (1) {
+        test_2src_op<double, double, double>(vfsub_vv_64_ref, vfsub_vv_f64_vec);
     }
 
     return 0;
