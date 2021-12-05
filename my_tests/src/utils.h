@@ -20,11 +20,11 @@ void test_result(Type *y, Type *y_ref, uint64_t nrows)
    if (nerrs == 0) {
       printf ("Result ok !!!\n");
       for (row=0; row<5; row++) {
-         printf("y[%ld]=%.16f != y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
+         printf("y[%ld]=%.16f == y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
       }
       printf("...\n");
       for (row=nrows-5; row<nrows; row++) {
-         printf("y[%ld]=%.16f != y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
+         printf("y[%ld]=%.16f == y_ref[%ld]=%.16f  \n ", row, y[row], row, y_ref[row]);
       }
    }
    
