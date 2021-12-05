@@ -50,14 +50,14 @@ void vfmax_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
     }
 }
 
-void vand_vv_64_ref(uint64_t* vd, double* vs2, double* vs1, int n) {
+void vand_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] & vs1[i];
     }
 }
 
-void vor_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vor_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] | vs1[i];

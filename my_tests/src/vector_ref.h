@@ -4,7 +4,7 @@
 void vfadd_vv_f64_vec(double* vd, double* vs2, double* vs1, int n) {
     int i;
 
-    long gvl = vsetvl_e64m1(n)
+    long gvl = vsetvl_e64m1(n);
     
     for (i = 0; i < n;) {
         // gvl = __builtin_epi_vsetvl(n - i, __epi_e64, __epi_m1);
