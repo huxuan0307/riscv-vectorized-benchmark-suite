@@ -47,9 +47,9 @@ void init_vector(double *pv, long n, double value)
 //   }
 }
 
-void init_vector(double* pv, long n)
+void init_vector(double* pv, int64_t n)
 {
-    for (int i=0; i<n; i++)
+    for (int64_t i=0; i<n; i++)
         pv[i] = (double)rand()/(double)RAND_MAX;
 }
 
@@ -57,14 +57,14 @@ template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
 void test_2src_op(
     void (*ref_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int), 
     void (*vector_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int),
-    int test_size = 1024
+    uint64_t test_size = 1024
 ) {
 
     long long start,end;
     
     start = get_time();
     
-    const int n = test_size;
+    const auto n = test_size;
     /* Allocate the source and result vectors */
     TypeSrc1 *vs1    = (TypeSrc1*)  malloc(n*sizeof(TypeSrc1));
     TypeSrc2 *vs2    = (TypeSrc2*)  malloc(n*sizeof(TypeSrc2));
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 {
     // vfadd
     if (1) {
-        test_2src_op(vfadd_vv_64_ref, vfadd_vv_f64_vec);
+        test_2src_op<double, double, double>(vfadd_vv_64_ref, vfadd_vv_f64_vec);
 
     }
 

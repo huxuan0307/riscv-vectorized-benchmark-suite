@@ -10,10 +10,10 @@
 
 
 template<typename Type>
-void test_result(Type *y, Type *y_ref, long nrows)
+void test_result(Type *y, Type *y_ref, uint64_t nrows)
 {
-   long row;
-   int nerrs=0;
+   uint64_t row;
+   uint64_t nerrs=0;
    /* Compute with the result to keep the compiler for marking the code as dead */
    for (row=0; row<nrows; row++) {
       double error = y[row] - y_ref[row];
