@@ -1,63 +1,63 @@
 #include <stdint.h>
 #include <math.h>
 
-void vfmv_v_f_64_ref(double* vd, double* vs1, int n) {
+void vfmv_v_f_f64_ref(double* vd, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs1[i];
     }
 }
 
-void vfadd_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfadd_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] + vs1[i];
     }
 }
 
-void vfsub_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfsub_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] - vs1[i];
     }
 }
 
-void vmflt_vv_64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
+void vmflt_vv_f64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs2[i] < vs1[i]) ? (uint8_t)1 : (uint8_t)0;
     }
 }
 
-void vmfle_vv_64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
+void vmfle_vv_f64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs2[i] <= vs1[i]) ? (uint8_t)1 : (uint8_t)0;
     }
 }
 
-void vmv_vv_64_ref(uint64_t* vd, uint64_t* vs1, int n) {
+void vmv_v_x_i64_ref(uint64_t* vd, uint64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs1[i];
     }
 }
 
-void vfmax_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfmax_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs2[i]>vs1[i]) ? vs2[i] : vs1[i];
     }
 }
 
-void vand_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
+void vand_vv_i64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] & vs1[i];
     }
 }
 
-void vor_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
+void vor_vv_i64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] | vs1[i];

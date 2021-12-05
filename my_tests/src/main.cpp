@@ -97,15 +97,65 @@ void test_2src_op(
     free(vs1); free(vs2); free(vd); free(vd_ref);
 }
 
+template<typename TypeRet, typename TypeSrc1>
+void test_1src_op(
+    void (*ref_func)(TypeRet*, TypeSrc1*, int), 
+    void (*vector_func)(TypeRet*, TypeSrc1*, int),
+    uint64_t test_size = 1024
+) {
+
+    long long start,end;
+    
+    start = get_time();
+    
+    const auto n = test_size;
+    /* Allocate the source and result vectors */
+    TypeSrc1 *vs1    = (TypeSrc1*)  malloc(n*sizeof(TypeSrc1));
+    TypeRet  *vd     = (TypeRet*)   malloc(n*sizeof(TypeRet));
+    TypeRet  *vd_ref = (TypeRet*)   malloc(n*sizeof(TypeRet));
+    
+    init_vector(vs1, n);
+
+    end = get_time();
+    printf("init_vector time: %f\n", elapsed_time(start, end));
+
+    printf ("doing reference calculate\n");
+    start = get_time();
+
+    ref_func(vd_ref, vs1, n);
+
+    end = get_time();
+    printf("reference time: %f\n", elapsed_time(start, end));
+
+    printf ("doing vector calculate\n");
+    start = get_time();
+    vector_func(vd, vs1, n);
+    end = get_time();
+    printf("vector time: %f\n", elapsed_time(start, end));
+    
+    printf ("done\n");
+    test_result(vd, vd_ref, n);
+
+    free(vs1); free(vd); free(vd_ref);
+}
+
 int main(int argc, char *argv[])
 {
     // vfadd
     if (1) {
-        test_2src_op<double, double, double>(vfadd_vv_64_ref, vfadd_vv_f64_vec);
+        test_2src_op<double, double, double>(vfadd_vv_f64_ref, vfadd_vv_f64_vec);
     }
     // vfsub
     if (1) {
-        test_2src_op<double, double, double>(vfsub_vv_64_ref, vfsub_vv_f64_vec);
+        test_2src_op<double, double, double>(vfsub_vv_f64_ref, vfsub_vv_f64_vec);
+    }
+
+    if (1) {
+        test_1src_op<double, double>(vfmv_v_f_64_ref, vfmv_v_f_f64_vec);
+    }
+
+    if (1) {
+        test_1src_op<double, double>(vmv_v_x_i64_ref, vmv_v_x_i64_vec);
     }
 
     return 0;
