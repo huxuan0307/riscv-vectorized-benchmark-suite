@@ -1,8 +1,8 @@
 #makefile
 
-GCC_TOOLCHAIN_DIR := /opt/RISCV/
-GEM5_DIR := /git/plct-gem5/
-BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
+GCC_TOOLCHAIN_DIR := /home/huxuan/opt/RISCV/
+GEM5_DIR := /home/huxuan/repos/plct-gem5/
+BENCHMARK_DIR := /home/huxuan/repos/riscv-vectorized-benchmark-suite/
 
 start:
 	if [ ! -d bin ]; then \

@@ -238,6 +238,17 @@ runqemu_axpy_O2:
 	cd _axpy; 			\
 	make runqemu_O2;
 
+my_tests:
+	cd my_tests;		\
+	make start;			\
+	make serial; 		\
+	make vector;
+
+my_tests_O2:
+	cd my_tests;		\
+	make start;			\
+	make serial_O2; 	\
+	make vector_O2;
 
 clean:
 	for dir in $(APPLICATION_DIRS) ; do cd $$dir ; make clean ; cd .. ; done
