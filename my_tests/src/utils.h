@@ -1,3 +1,7 @@
+#ifndef _MY_TESTS_UTILS_
+#define _MY_TESTS_UTILS_
+
+#include <stdint.h>
 
 template<typename Type>
 void test_result(Type *y, Type *y_ref, uint64_t nrows)
@@ -16,3 +20,4 @@ void test_result(Type *y, Type *y_ref, uint64_t nrows)
    if (nerrs == 0) printf ("Result ok !!!\n");
 }
 
+#endif
