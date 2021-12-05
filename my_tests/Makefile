@@ -15,7 +15,7 @@ serial:
 	for entry in src/*.cpp ; do \
 		${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -c -o $$entry.o $$entry; \
 	done
-	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -o bin/my_tests_serial src/*.c.o -lm; \
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -o bin/my_tests_serial src/*.cpp.o -lm; \
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/my_tests_serial > bin/my_tests_serial.dump; \
 	rm src/*.o;
 
@@ -23,7 +23,7 @@ vector:
 	for entry in src/*.cpp ; do \
 		${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -c -o $$entry.o $$entry; \
 	done
-	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/my_tests_vector src/*.c.o -lm; \
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/my_tests_vector src/*.cpp.o -lm; \
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/my_tests_vector > bin/my_tests_vector.dump; \
 	rm src/*.o;
 
@@ -31,7 +31,7 @@ serial_O2:
 	for entry in src/*.cpp ; do \
 		${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -O2 -g -c -o $$entry.o $$entry; \
 	done
-	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -O2 -g -o bin/my_tests_serial_O2 src/*.c.o -lm; \
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -O2 -g -o bin/my_tests_serial_O2 src/*.cpp.o -lm; \
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/my_tests_serial_O2 > bin/my_tests_serial_O2.dump; \
 	rm src/*.o;
 
@@ -39,7 +39,7 @@ vector_O2:
 	for entry in src/*.cpp ; do \
 		${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -O2 -static -g -c -o $$entry.o $$entry; \
 	done
-	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -O2 -static -g -o bin/my_tests_vector_O2 src/*.c.o -lm; \
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -O2 -static -g -o bin/my_tests_vector_O2 src/*.cpp.o -lm; \
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/my_tests_vector_O2 > bin/my_tests_vector_O2.dump; \
 	rm src/*.o;
 
