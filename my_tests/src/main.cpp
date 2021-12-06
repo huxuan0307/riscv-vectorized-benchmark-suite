@@ -54,6 +54,51 @@ void init_vector(double* pv, int64_t n)
 }
 
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
+void test_3src_op(
+    void (*ref_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int), 
+    void (*vector_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int),
+    uint64_t test_size = 1024
+) {
+
+    long long start,end;
+    
+    start = get_time();
+    
+    const auto n = test_size;
+    /* Allocate the source and result vectors */
+    TypeSrc1 *vs1    = (TypeSrc1*)  malloc(n*sizeof(TypeSrc1));
+    TypeSrc2 *vs2    = (TypeSrc2*)  malloc(n*sizeof(TypeSrc2));
+    TypeRet  *vd     = (TypeRet*)   malloc(n*sizeof(TypeRet));
+    TypeRet  *vd_ref = (TypeRet*)   malloc(n*sizeof(TypeRet));
+    
+    init_vector(vs1, n);
+    init_vector(vs2, n);
+    init_vector(vd,  n);
+
+    end = get_time();
+    printf("init_vector time: %f\n", elapsed_time(start, end));
+
+    printf ("doing reference calculate\n");
+    start = get_time();
+
+    ref_func(vd_ref, vs1, vs2, n);
+
+    end = get_time();
+    printf("reference time: %f\n", elapsed_time(start, end));
+
+    printf ("doing vector calculate\n");
+    start = get_time();
+    vector_func(vd, vs1, vs2, n);
+    end = get_time();
+    printf("vector time: %f\n", elapsed_time(start, end));
+    
+    printf ("done\n");
+    test_result(vd, vd_ref, n);
+
+    free(vs1); free(vs2); free(vd); free(vd_ref);
+}
+
+template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
 void test_2src_op(
     void (*ref_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int), 
     void (*vector_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int),
@@ -143,13 +188,28 @@ int main(int argc, char *argv[])
 {
     // vfadd
     if (1) {
+        printf("\n*****vfadd_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfadd_vv_f64_ref, vfadd_vv_f64_vec);
     }
     // vfsub
     if (1) {
+        printf("\n*****vfsub_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfsub_vv_f64_ref, vfsub_vv_f64_vec);
     }
-    // 
-
+    // vfmul
+    if (1) {
+        printf("\n*****vfmul_vv_f64 test*****\n");
+        test_2src_op<double, double, double>(vfmul_vv_f64_ref, vfmul_vv_f64_vec);
+    }
+    // vfmadd
+    if (1) {
+        printf("\n*****vfmadd_vv_f64 test*****\n");
+        test_3src_op<double, double, double>(vfmadd_vv_f64_ref, vfmadd_vv_f64_vec);
+    }
+    // vfmacc
+    if (1) {
+        printf("\n*****vfmadd_vv_f64 test*****\n");
+        test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec);
+    }
     return 0;
 }
