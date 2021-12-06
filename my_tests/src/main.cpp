@@ -149,14 +149,7 @@ int main(int argc, char *argv[])
     if (1) {
         test_2src_op<double, double, double>(vfsub_vv_f64_ref, vfsub_vv_f64_vec);
     }
-
-    if (1) {
-        test_1src_op<double, double>(vfmv_v_f_64_ref, vfmv_v_f_f64_vec);
-    }
-
-    if (1) {
-        test_1src_op<double, double>(vmv_v_x_i64_ref, vmv_v_x_i64_vec);
-    }
+    // 
 
     return 0;
 }
