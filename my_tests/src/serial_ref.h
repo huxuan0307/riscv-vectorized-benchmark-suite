@@ -70,8 +70,8 @@ void vmfle_vv_f64_ref(int64_t* vd, double* vs2, double* vs1, int n) {
 void vfsgnj_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
-        printf("vs1[%4d]=%.6f, vs2[%4d]=%.6f, vd[%4d]=%.6f\n", i, vs1[i], i, vs2[i], i, vd[i]);
         vd[i] = vs2[i] > 0 ? fabs(vs1[i]) : -fabs(vs1[i]);
+        printf("vs1[%4d]=%.6f, vs2[%4d]=%.6f, vd[%4d]=%.6f\n", i, vs1[i], i, vs2[i], i, vd[i]);
     }
 }
 
