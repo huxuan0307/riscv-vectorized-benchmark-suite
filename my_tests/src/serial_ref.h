@@ -49,7 +49,7 @@ void vfmacc_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         printf("vd[%4d]=%.10f, vs1[%4d]=%.10f, vs2[%4d]=%.10f", 
-            i, vd[i], i, vs1[i], i, vs2[i])
+            i, vd[i], i, vs1[i], i, vs2[i]);
         vd[i] = vs1[i]*vs2[i] + vd[i];
         printf(", vd_new[%4d]=%.10f\n", i, vd[i]);
     }
