@@ -239,5 +239,10 @@ int main(int argc, char *argv[])
         printf("\n*****vfsgnjx_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfsgnjx_vv_f64_ref, vfsgnjx_vv_f64_vec);
     }
+    // vfmax
+    if (1) {
+        printf("\n*****vfmax_vv_f64 test*****\n");
+        test_2src_op<double, double, double>(vfmax_vv_f64_ref, vfmax_vv_f64_vec);
+    }
     return 0;
 }
