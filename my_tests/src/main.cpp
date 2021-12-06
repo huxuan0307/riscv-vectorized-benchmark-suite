@@ -100,8 +100,8 @@ void test_3src_op(
 
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
 void test_2src_op(
-    void (*ref_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int), 
-    void (*vector_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int),
+    void (*ref_func)(TypeRet*, TypeSrc2*, TypeSrc1*, int), 
+    void (*vector_func)(TypeRet*, TypeSrc2*, TypeSrc1*, int),
     uint64_t test_size = 1024
 ) {
 
