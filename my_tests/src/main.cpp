@@ -187,29 +187,29 @@ void test_1src_op(
 int main(int argc, char *argv[])
 {
     // vfadd
-    if (1) {
+    if (0) {
         printf("\n*****vfadd_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfadd_vv_f64_ref, vfadd_vv_f64_vec);
     }
     // vfsub
-    if (1) {
+    if (0) {
         printf("\n*****vfsub_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfsub_vv_f64_ref, vfsub_vv_f64_vec);
     }
     // vfmul
-    if (1) {
+    if (0) {
         printf("\n*****vfmul_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfmul_vv_f64_ref, vfmul_vv_f64_vec);
     }
     // vfmadd
     if (1) {
         printf("\n*****vfmadd_vv_f64 test*****\n");
-        test_3src_op<double, double, double>(vfmadd_vv_f64_ref, vfmadd_vv_f64_vec);
+        test_3src_op<double, double, double>(vfmadd_vv_f64_ref, vfmadd_vv_f64_vec, 64);
     }
     // vfmacc
     if (1) {
         printf("\n*****vfmadd_vv_f64 test*****\n");
-        test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec);
+        test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec, 64);
     }
     return 0;
 }
