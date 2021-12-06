@@ -68,12 +68,15 @@ void test_3src_op(
     /* Allocate the source and result vectors */
     TypeSrc1 *vs1    = (TypeSrc1*)  malloc(n*sizeof(TypeSrc1));
     TypeSrc2 *vs2    = (TypeSrc2*)  malloc(n*sizeof(TypeSrc2));
+    TypeRet  *vd_old = (TypeRet*)   malloc(n*sizeof(TypeRet));
     TypeRet  *vd     = (TypeRet*)   malloc(n*sizeof(TypeRet));
     TypeRet  *vd_ref = (TypeRet*)   malloc(n*sizeof(TypeRet));
     
     init_vector(vs1, n);
     init_vector(vs2, n);
-    init_vector(vd,  n);
+    init_vector(vd_old,  n);
+    copy_result(vd_ref, vd_old, n);
+    copy_result(vd, vd_old, n);
 
     end = get_time();
     printf("init_vector time: %f\n", elapsed_time(start, end));
@@ -125,7 +128,7 @@ void test_2src_op(
     printf ("doing reference calculate\n");
     start = get_time();
 
-    ref_func(vd_ref, vs2, vs1, n);
+    ref_func(vd, vs2, vs1, n);
 
     end = get_time();
     printf("reference time: %f\n", elapsed_time(start, end));
@@ -208,7 +211,7 @@ int main(int argc, char *argv[])
     }
     // vfmacc
     if (1) {
-        printf("\n*****vfmadd_vv_f64 test*****\n");
+        printf("\n*****vfmacc_vv_f64 test*****\n");
         test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec, 64);
     }
     return 0;

@@ -4,7 +4,16 @@
 #include <stdint.h>
 
 template<typename Type>
-void test_result(Type *y, Type *y_ref, uint64_t nrows)
+void copy_result(Type* dst, Type* src, uint64_t n)
+{
+   int i;
+   for (i=0; i<n; i++) {
+      dst[i]=src[i];
+   }
+}
+
+template<typename Type>
+void test_result(Type* y, Type* y_ref, uint64_t nrows)
 {
    uint64_t row;
    uint64_t nerrs=0;
