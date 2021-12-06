@@ -214,12 +214,15 @@ int main(int argc, char *argv[])
         printf("\n*****vfmacc_vv_f64 test*****\n");
         test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec);
     }
-    
     // vmflt
     if (1) {
         printf("\n*****vmflt_vv_f64 test*****\n");
         test_2src_op<int64_t, double, double>(vmflt_vv_f64_ref, vmflt_vv_f64_vec);
     }
-
+    // vmfle
+    if (1) {
+        printf("\n*****vmflt_vv_f64 test*****\n");
+        test_2src_op<int64_t, double, double>(vmfle_vv_f64_ref, vmfle_vv_f64_vec);
+    }
     return 0;
 }
