@@ -50,7 +50,7 @@ void init_vector(double *pv, long n, double value)
 void init_vector(double* pv, int64_t n)
 {
     for (int64_t i=0; i<n; i++)
-        pv[i] = (double)rand()/(double)RAND_MAX;
+        pv[i] = (double)rand()/(double)RAND_MAX*2-1;
 }
 
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
