@@ -19,7 +19,7 @@ void test_result(Type* y, Type* y_ref, uint64_t nrows)
    uint64_t row;
    uint64_t nerrs=0;
    /* Compute with the result to keep the compiler for marking the code as dead */
-   if (std::is_floating_point(Type)::value) {
+   if (std::is_floating_point<Type>::value) {
       for (row=0; row<nrows; row++) {
          double error = y[row] - y_ref[row];
          if (fabs(error) > 0.0000001)  {

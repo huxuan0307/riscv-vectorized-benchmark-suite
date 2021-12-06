@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
     // vmflt
     if (1) {
         printf("\n*****vmflt_vv_f64 test*****\n");
-        test_2src_op<int64_t, double, double>(vmflt_vv_f64_ref, vmflt)
+        test_2src_op<int64_t, double, double>(vmflt_vv_f64_ref, vmflt_vv_f64_vec);
     }
 
     return 0;

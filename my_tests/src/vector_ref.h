@@ -99,7 +99,7 @@ void vmflt_vv_f64_vec(int64_t* vd, double* vs2, double* vs1, int n) {
         _MMR_f64 v_vs1 = vle64_v_f64m1(&vs1[i], gvl);
         _MMR_f64 v_vs2 = vle64_v_f64m1(&vs2[i], gvl);
         _MMR_MASK_i64 v_res = vmflt_vv_f64m1_b64(v_vs1, v_vs2, gvl);
-        vse64_v_f64m1(&vd[i], v_res, gvl);
+        vse64_v_i64m1(&vd[i], v_res, gvl);
         i += gvl;
     }
 
