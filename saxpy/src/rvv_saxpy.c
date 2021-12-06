@@ -64,6 +64,7 @@ void saxpy_vec(size_t n, const float a, const float *x, float *y) {
     vse32_v_f32m1(y, vy, l);
     y += l;
   }
+  asm volatile( "fence" : : );
 }
 
 int fp_eq(float reference, float actual, float relErr)
