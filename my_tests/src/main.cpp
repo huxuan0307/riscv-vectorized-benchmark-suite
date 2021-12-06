@@ -81,14 +81,14 @@ void test_3src_op(
     printf ("doing reference calculate\n");
     start = get_time();
 
-    ref_func(vd_ref, vs1, vs2, n);
+    ref_func(vd_ref, vs2, vs1, n);
 
     end = get_time();
     printf("reference time: %f\n", elapsed_time(start, end));
 
     printf ("doing vector calculate\n");
     start = get_time();
-    vector_func(vd, vs1, vs2, n);
+    vector_func(vd, vs2, vs1, n);
     end = get_time();
     printf("vector time: %f\n", elapsed_time(start, end));
     
@@ -125,14 +125,14 @@ void test_2src_op(
     printf ("doing reference calculate\n");
     start = get_time();
 
-    ref_func(vd_ref, vs1, vs2, n);
+    ref_func(vd_ref, vs2, vs1, n);
 
     end = get_time();
     printf("reference time: %f\n", elapsed_time(start, end));
 
     printf ("doing vector calculate\n");
     start = get_time();
-    vector_func(vd, vs1, vs2, n);
+    vector_func(vd, vs2, vs1, n);
     end = get_time();
     printf("vector time: %f\n", elapsed_time(start, end));
     

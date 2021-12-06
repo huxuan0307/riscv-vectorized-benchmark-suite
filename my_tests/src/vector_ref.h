@@ -28,7 +28,7 @@ void vfsub_vv_f64_vec(double* vd, double* vs2, double* vs1, int n) {
         gvl = vsetvl_e64m1(n - i);
         _MMR_f64 v_vs1 = vle64_v_f64m1(&vs1[i], gvl);
         _MMR_f64 v_vs2 = vle64_v_f64m1(&vs2[i], gvl);
-        _MMR_f64 v_res = vfsub_vv_f64m1(v_vs2, v_vs1, gvl);
+        _MMR_f64 v_res = vfsub_vv_f64m1(v_vs1, v_vs2, gvl);
         vse64_v_f64m1(&vd[i], v_res, gvl);
         i += gvl;
     }
