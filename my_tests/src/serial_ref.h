@@ -38,26 +38,20 @@ void vfmadd_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
 
     for (i=0; i<n; i++) {
-        printf("vd[%4d]=%.10f, vs1[%4d]=%.10f, vs2[%4d]=%.10f", 
-            i, vd[i], i, vs1[i], i, vs2[i]);
         vd[i] = vs1[i]*vd[i] + vs2[i];
-        printf(", vd_new[%4d]=%.10f\n", i, vd[i]);
     }
 }
 
 void vfmacc_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
-        printf("vd[%4d]=%.10f, vs1[%4d]=%.10f, vs2[%4d]=%.10f", 
-            i, vd[i], i, vs1[i], i, vs2[i]);
         vd[i] = vs1[i]*vs2[i] + vd[i];
-        printf(", vd_new[%4d]=%.10f\n", i, vd[i]);
     }
 }
 
 // float cmp operation
 
-void vmflt_vv_f64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
+void vmflt_vv_f64_ref(int64_t* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs2[i] < vs1[i]) ? (uint8_t)1 : (uint8_t)0;

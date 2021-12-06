@@ -207,12 +207,19 @@ int main(int argc, char *argv[])
     // vfmadd
     if (1) {
         printf("\n*****vfmadd_vv_f64 test*****\n");
-        test_3src_op<double, double, double>(vfmadd_vv_f64_ref, vfmadd_vv_f64_vec, 64);
+        test_3src_op<double, double, double>(vfmadd_vv_f64_ref, vfmadd_vv_f64_vec);
     }
     // vfmacc
     if (1) {
         printf("\n*****vfmacc_vv_f64 test*****\n");
-        test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec, 64);
+        test_3src_op<double, double, double>(vfmacc_vv_f64_ref, vfmacc_vv_f64_vec);
     }
+    
+    // vmflt
+    if (1) {
+        printf("\n*****vmflt_vv_f64 test*****\n");
+        test_2src_op<int64_t, double, double>(vmflt_vv_f64_ref, vmflt)
+    }
+
     return 0;
 }
