@@ -229,5 +229,15 @@ int main(int argc, char *argv[])
         printf("\n*****vfsgnj_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfsgnj_vv_f64_ref, vfsgnj_vv_f64_vec);
     }
+    // vfsgnjn
+    if (1) {
+        printf("\n*****vfsgnjn_vv_f64 test*****\n");
+        test_2src_op<double, double, double>(vfsgnjn_vv_f64_ref, vfsgnjn_vv_f64_vec);
+    }
+    // vfsgnjx
+    if (1) {
+        printf("\n*****vfsgnjx_vv_f64 test*****\n");
+        test_2src_op<double, double, double>(vfsgnjx_vv_f64_ref, vfsgnjx_vv_f64_vec);
+    }
     return 0;
 }
