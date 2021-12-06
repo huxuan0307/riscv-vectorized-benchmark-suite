@@ -58,7 +58,7 @@ void vmflt_vv_f64_ref(int64_t* vd, double* vs2, double* vs1, int n) {
     }
 }
 
-void vmfle_vv_f64_ref(uint8_t* vd, double* vs2, double* vs1, int n) {
+void vmfle_vv_f64_ref(int64_t* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs1[i] <= vs2[i]) ? (uint8_t)1 : (uint8_t)0;
