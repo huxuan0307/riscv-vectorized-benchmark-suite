@@ -67,21 +67,21 @@ void vmfle_vv_f64_ref(int64_t* vd, double* vs2, double* vs1, int n) {
 
 // float other operation
 
-void vfsgnj_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfsgnj_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] > 0 ? fabs(vs1[i]) : -fabs(vs1[i]);
     }
 }
 
-void vfsgnjn_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfsgnjn_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] < 0 ? fabs(vs1[i]) : -fabs(vs1[i]);
     }
 }
 
-void vfsgnjx_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vfsgnjx_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (vs2[i] > 0) ? vs1[i] : -vs1[i];

@@ -224,5 +224,10 @@ int main(int argc, char *argv[])
         printf("\n*****vmflt_vv_f64 test*****\n");
         test_2src_op<int64_t, double, double>(vmfle_vv_f64_ref, vmfle_vv_f64_vec);
     }
+    // vfsgnj
+    if (1) {
+        printf("\n*****vmflt_vv_f64 test*****\n");
+        test_2src_op<int64_t, double, double>(vfsgnj_vv_f64_ref, vfsgnj_vv_f64_vec);
+    }
     return 0;
 }
