@@ -50,7 +50,7 @@ void init_vector(double *pv, long n, double value)
 void init_vector(double* pv, int64_t n)
 {
     for (int64_t i=0; i<n; i++)
-        pv[i] = (double)rand()/(double)RAND_MAX*2-1;
+        pv[i] = (double)rand()/((double)RAND_MAX)*2-1;
 }
 
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
@@ -190,17 +190,17 @@ void test_1src_op(
 int main(int argc, char *argv[])
 {
     // vfadd
-    if (0) {
+    if (1) {
         printf("\n*****vfadd_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfadd_vv_f64_ref, vfadd_vv_f64_vec);
     }
     // vfsub
-    if (0) {
+    if (1) {
         printf("\n*****vfsub_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfsub_vv_f64_ref, vfsub_vv_f64_vec);
     }
     // vfmul
-    if (0) {
+    if (1) {
         printf("\n*****vfmul_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfmul_vv_f64_ref, vfmul_vv_f64_vec);
     }
