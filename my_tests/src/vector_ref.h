@@ -190,3 +190,19 @@ void vfmax_vv_f64_vec(double* vd, double* vs2, double* vs1, int n) {
 
     FENCE();
 }
+
+void vfcvt_x_f_v_i32_vec(int32_t* vd, float* vs2, int n) {
+    int i;
+
+    long gvl = vsetvl_e32m1(n);
+    
+    for (i = 0; i < n;) {
+        gvl = vsetvl_e32m1(n - i);
+        _MMR_f32 v_vs2 = vle32_v_f32m1(&vs2[i], gvl);
+        _MMR_i32 v_res = vfcvt_x_f_v_i32m1(v_vs2, gvl);
+        vse32_v_i32m1(&vd[i], v_res, gvl);
+        i += gvl;
+    }
+
+    FENCE();
+}

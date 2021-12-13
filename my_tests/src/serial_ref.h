@@ -96,7 +96,56 @@ void vfmax_vv_f64_ref(double* vd, double* vs2, double* vs1, int n) {
     }
 }
 
-void vfcvt_fx_f64i64_ref(double* vd, int64_t* vs2, int n) {
+void vfcvt_x_f_v_i32_ref(int32_t* vd, float* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (int32_t)vs2[i];
+    }
+}
+
+void vfcvt_x_f_v_i64_ref(int64_t* vd, double* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (int64_t)vs2[i];
+    }
+}
+
+void vfcvt_xu_f_v_u32_ref(uint32_t* vd, float* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (uint32_t)vs2[i];
+    }
+}
+
+void vfcvt_xu_f_v_u64_ref(uint64_t* vd, double* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (uint64_t)vs2[i];
+    }
+}
+
+void vfcvt_f_x_v_f32_ref(float* vd, int32_t* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (float)vs2[i];
+    }
+}
+
+void vfcvt_f_x_v_f64_ref(double* vd, int64_t* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (double)vs2[i];
+    }
+}
+
+void vfcvt_f_xu_v_f32_ref(float* vd, uint32_t* vs2, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = (float)vs2[i];
+    }
+}
+
+void vfcvt_f_xu_v_f64_ref(double* vd, uint64_t* vs2, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = (double)vs2[i];
