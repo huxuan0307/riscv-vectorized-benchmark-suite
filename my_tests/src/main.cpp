@@ -47,10 +47,49 @@ void init_vector(double *pv, long n, double value)
 //   }
 }
 
+uint32_t rand32bit() {
+    return rand() | (rand() %2==0 ? 0x80000000 : 0);
+}
+
+uint64_t rand64bit() {
+    return (rand32bit() << 32) | rand32bit();
+}
+
 void init_vector(double* pv, int64_t n)
 {
     for (int64_t i=0; i<n; i++)
-        pv[i] = (double)rand()/((double)RAND_MAX)*2-1;
+        pv[i] = (double)1000*((double)rand()/((double)RAND_MAX)*2-1);
+}
+
+void init_vector(float* pv, int64_t n)
+{
+    for (int64_t i=0; i<n; i++)
+        pv[i] = (float)1000*((float)rand()/((float)RAND_MAX)*2-1);
+}
+
+void init_vector(int64_t* pv, uint64_t n)
+{
+    for (int64_t i=0; i<n; i++) {
+        uint64_t tmp = rand64bit();
+        pv[i] = *(int64_t*)(&tmp);
+    }
+}
+
+void init_vector(uint64_t* pv, uint64_t n) {
+    for (int64_t i=0; i<n; i++)
+        pv[i] = rand64bit();
+}
+
+void init_vector(int32_t* pv, uint64_t n) {
+    for (int64_t i=0; i<n; i++) {
+        uint32_t tmp = rand32bit();
+        pv[i] = *(int32_t*)(&tmp);
+    }
+}
+
+void init_vector(uint32_t* pv, uint64_t n) {
+    for (int64_t i=0; i<n; i++)
+        pv[i] = rand32bit();
 }
 
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
@@ -247,7 +286,7 @@ int main(int argc, char *argv[])
 
     if (1) {
         printf("\n*****vfcvt_x_f_v_f32 test*****\n");
-        test_1src_op<double, int>(vfcvt_x_f_v_i32_ref, vfcvt_x_f_v_i32_vec);
+        test_1src_op<int, float>(vfcvt_x_f_v_i32_ref, vfcvt_x_f_v_i32_vec);
     }
     return 0;
 }
