@@ -286,20 +286,20 @@ int main(int argc, char *argv[])
     // vfcvt_x_f_v
     if (1) {
         printf("\n*****vfcvt_x_f_v_i32 test*****\n");
-        test_1src_op<int, float>(vfcvt_x_f_v_i32_ref, vfcvt_x_f_v_i32_vec);
+        test_1src_op<int32_t, float>(vfcvt_x_f_v_i32_ref, vfcvt_x_f_v_i32_vec);
     }
     if (1) {
         printf("\n*****vfcvt_x_f_v_i64 test*****\n");
-        test_1src_op<int, float>(vfcvt_x_f_v_i64_ref, vfcvt_x_f_v_i64_vec);
+        test_1src_op<int64_t, double>(vfcvt_x_f_v_i64_ref, vfcvt_x_f_v_i64_vec);
     }
     // vfcvt_f_x_v
     if (1) {
         printf("\n*****vfcvt_f_x_v_f32 test*****\n");
-        test_1src_op<int, float>(vfcvt_f_x_v_f32_ref, vfcvt_f_x_v_f32_vec);
+        test_1src_op<float, int32_t>(vfcvt_f_x_v_f32_ref, vfcvt_f_x_v_f32_vec);
     }
     if (1) {
         printf("\n*****vfcvt_f_x_v_f64 test*****\n");
-        test_1src_op<int, float>(vfcvt_f_x_v_f64_ref, vfcvt_f_x_v_f64_vec);
+        test_1src_op<double, int64_t>(vfcvt_f_x_v_f64_ref, vfcvt_f_x_v_f64_vec);
     }
     return 0;
 }
