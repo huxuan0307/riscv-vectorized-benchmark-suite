@@ -310,5 +310,15 @@ int main(int argc, char *argv[])
         printf("\n*****vdiv_vv_i32 test*****\n");
         test_2src_op<int32_t, int32_t, int32_t>(vdiv_vv_i32_ref, vdiv_vv_i32_vec);
     }
+    // vmul_vv
+    if (1) {
+        printf("\n*****vmul_vv_i64 test*****\n");
+        test_2src_op<int64_t, int64_t, int64_t>(vmul_vv_i64_ref, vmul_vv_i64_vec);
+    }
+    if (1) {
+        printf("\n*****vmul_vv_i32 test*****\n");
+        test_2src_op<int32_t, int32_t, int32_t>(vmul_vv_i32_ref, vmul_vv_i32_vec);
+    }
+
     return 0;
 }
