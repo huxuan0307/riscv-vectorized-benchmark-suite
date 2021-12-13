@@ -239,7 +239,6 @@ void vfcvt_f_x_v_f32_vec(float* vd, int32_t* vs2, int n) {
     FENCE();
 }
 
-
 void vfcvt_f_x_v_f64_vec(double* vd, int64_t* vs2, int n) {
     int i;
 
@@ -250,6 +249,40 @@ void vfcvt_f_x_v_f64_vec(double* vd, int64_t* vs2, int n) {
         _MMR_i64 v_vs2 = vle64_v_i64m1(&vs2[i], gvl);
         _MMR_f64 v_res = vfcvt_f_x_v_f64m1(v_vs2, gvl);
         vse64_v_f64m1(&vd[i], v_res, gvl);
+        i += gvl;
+    }
+
+    FENCE();
+}
+
+void vdiv_vv_i64_vec(int64_t* vd, int64_t* vs2, int64_t* vs1, int n) {
+    int i;
+
+    long gvl = vsetvl_e64m1(n);
+    
+    for (i = 0; i < n;) {
+        gvl = vsetvl_e64m1(n - i);
+        _MMR_i64 v_vs1 = vle64_v_i64m1(&vs1[i], gvl);
+        _MMR_i64 v_vs2 = vle64_v_i64m1(&vs2[i], gvl);
+        _MMR_i64 v_res = vdiv_vv_i64m1(v_vs2, v_vs1, gvl);
+        vse64_v_i64m1(&vd[i], v_res, gvl);
+        i += gvl;
+    }
+
+    FENCE();
+}
+
+void vdiv_vv_i32_vec(int32_t* vd, int32_t* vs2, int32_t* vs1, int n) {
+    int i;
+
+    long gvl = vsetvl_e32m1(n);
+    
+    for (i = 0; i < n;) {
+        gvl = vsetvl_e32m1(n - i);
+        _MMR_i32 v_vs1 = vle32_v_i32m1(&vs1[i], gvl);
+        _MMR_i32 v_vs2 = vle32_v_i32m1(&vs2[i], gvl);
+        _MMR_i32 v_res = vdiv_vv_i32m1(v_vs2, v_vs1, gvl);
+        vse32_v_i32m1(&vd[i], v_res, gvl);
         i += gvl;
     }
 

@@ -186,14 +186,28 @@ void vsub_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
     }
 }
 
-void vdiv_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vdiv_vv_i64_ref(int64_t* vd, int64_t* vs2, int64_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] / vs1[i];
     }
 }
 
-void vmul_vv_64_ref(double* vd, double* vs2, double* vs1, int n) {
+void vdiv_vv_i32_ref(int32_t* vd, int32_t* vs2, int32_t* vs1, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = vs2[i] / vs1[i];
+    }
+}
+
+void vmul_vv_i64_ref(int64_t* vd, int64_t* vs2, int64_t* vs1, int n) {
+    int i;
+    for (i=0; i<n; i++) {
+        vd[i] = vs2[i] * vs1[i];
+    }
+}
+
+void vmul_vv_i32_ref(int32_t* vd, int32_t* vs2, int32_t* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] * vs1[i];

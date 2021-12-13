@@ -301,5 +301,14 @@ int main(int argc, char *argv[])
         printf("\n*****vfcvt_f_x_v_f64 test*****\n");
         test_1src_op<double, int64_t>(vfcvt_f_x_v_f64_ref, vfcvt_f_x_v_f64_vec);
     }
+    // vdiv_vv
+    if (1) {
+        printf("\n*****vdiv_vv_i64 test*****\n");
+        test_2src_op<int64_t, int64_t, int64_t>(vdiv_vv_i64_ref, vdiv_vv_i64_vec);
+    }
+    if (1) {
+        printf("\n*****vdiv_vv_i32 test*****\n");
+        test_2src_op<int32_t, int32_t, int32_t>(vdiv_vv_i32_ref, vdiv_vv_i32_vec);
+    }
     return 0;
 }
