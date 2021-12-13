@@ -337,7 +337,7 @@ int main(int argc, char *argv[])
     // vmerge_vvm
     if (1) {
         printf("\n*****vmerge_vvm test*****\n");
-        test_3src_op<bool, int64_t, int64_t, int64_t>(vmerge_vvm_ref<int64_t>, vmerge_vvm_vec<int64_t>);
+        test_3src_op<int64_t, int64_t, int64_t, bool>(vmerge_vvm_ref<int64_t>, vmerge_vvm_vec<int64_t>);
     }
 
 
