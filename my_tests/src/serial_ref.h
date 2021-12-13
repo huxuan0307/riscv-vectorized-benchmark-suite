@@ -179,7 +179,8 @@ void vor_vv_i64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
 
 // fixed-point arith operation
 
-void vsub_vv_64_ref(uint64_t* vd, uint64_t* vs2, uint64_t* vs1, int n) {
+template<typename Type>
+void vsub_vv_ref(Type* vd, Type* vs2, Type* vs1, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vs2[i] - vs1[i];
