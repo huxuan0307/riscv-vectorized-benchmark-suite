@@ -283,10 +283,23 @@ int main(int argc, char *argv[])
         printf("\n*****vfmax_vv_f64 test*****\n");
         test_2src_op<double, double, double>(vfmax_vv_f64_ref, vfmax_vv_f64_vec);
     }
-
+    // vfcvt_x_f_v
     if (1) {
-        printf("\n*****vfcvt_x_f_v_f32 test*****\n");
+        printf("\n*****vfcvt_x_f_v_i32 test*****\n");
         test_1src_op<int, float>(vfcvt_x_f_v_i32_ref, vfcvt_x_f_v_i32_vec);
+    }
+    if (1) {
+        printf("\n*****vfcvt_x_f_v_i64 test*****\n");
+        test_1src_op<int, float>(vfcvt_x_f_v_i64_ref, vfcvt_x_f_v_i64_vec);
+    }
+    // vfcvt_f_x_v
+    if (1) {
+        printf("\n*****vfcvt_f_x_v_f32 test*****\n");
+        test_1src_op<int, float>(vfcvt_f_x_v_f32_ref, vfcvt_f_x_v_f32_vec);
+    }
+    if (1) {
+        printf("\n*****vfcvt_f_x_v_f64 test*****\n");
+        test_1src_op<int, float>(vfcvt_f_x_v_f64_ref, vfcvt_f_x_v_f64_vec);
     }
     return 0;
 }
