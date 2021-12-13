@@ -148,7 +148,7 @@ void CumNormalInv_vector( FTYPE* u ,FTYPE* output ,unsigned long int gvl)
   r = _MM_MERGE_f64(r1,r, mask1,gvl);
 
   _MM_STORE_f64(output,r,gvl);
-
+  FENCE();
 } // end of CumNormalInv
 
 #endif // USE_RISCV_VECTOR

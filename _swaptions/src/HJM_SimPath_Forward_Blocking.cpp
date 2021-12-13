@@ -73,10 +73,10 @@ void serialB(FTYPE **pdZ, FTYPE **randZ, int BLOCKSIZE, int iN, int iFactors)
           		// unsigned long int gvl = __builtin_epi_vsetvl(BLOCKSIZE, __epi_e64, __epi_m1);
     			unsigned long int  gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
                 CumNormalInv_vector(&randZ[l][BLOCKSIZE*j /*+ b*/] , &pdZ[l][BLOCKSIZE*j/* + b*/] , gvl);
-    			FENCE();
             //}
         }
     }
+	FENCE();
 
 #else
 
@@ -143,7 +143,7 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 	    	} //initializing HJMPath to zero
         }
     //}
-
+	FENCE();
 #else
  	for(int b=0; b<BLOCKSIZE; b++){
 	  	for(j=0;j<=iN-1;j++){
@@ -246,7 +246,8 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 
 	    for (l=0;l<=iN-(j+1);++l){ // l is the future steps
 	      xdTotalShock = _MM_SET_f64(0.0,gvl);
-	      pdDriftxddelt = pdTotalDrift[l]*ddelt;
+	      /// @todo vectorize
+		  pdDriftxddelt = pdTotalDrift[l]*ddelt;	
 
 	      for (i=0;i<=iFactors-1;++i){// i steps through the stochastic factors
 		xdTotalShock = _MM_ADD_f64(xdTotalShock, _MM_MUL_f64(_MM_SET_f64(ppdFactors[i][l],gvl), _MM_LOAD_f64(&pdZ[i][BLOCKSIZE*j],gvl),gvl),gvl);
@@ -256,6 +257,7 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 	      //as per formula
 	    }
 	  }
+	  FENCE();
 	//} // end Blocks
 
 #else
