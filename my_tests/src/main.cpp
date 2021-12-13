@@ -52,7 +52,7 @@ uint32_t rand32bit() {
 }
 
 uint64_t rand64bit() {
-    return (rand32bit() << 32) | rand32bit();
+    return (((uint64_t)rand32bit()) << 32) | rand32bit();
 }
 
 void init_vector(double* pv, int64_t n)
