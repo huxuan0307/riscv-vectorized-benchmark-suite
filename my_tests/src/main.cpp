@@ -92,6 +92,11 @@ void init_vector(uint32_t* pv, uint64_t n) {
         pv[i] = rand32bit();
 }
 
+void init_vector(bool* pv, uint64_t n) {
+    for (int64_t i=0; i<n; i++)
+        pv[i] = rand() %2 == 0;
+}
+
 template<typename TypeRet, typename TypeSrc1, typename TypeSrc2>
 void test_3src_op(
     void (*ref_func)(TypeRet*, TypeSrc1*, TypeSrc2*, int), 
@@ -328,5 +333,13 @@ int main(int argc, char *argv[])
         printf("\n*****vsub_vv_i32 test*****\n");
         test_2src_op<int32_t, int32_t, int32_t>(vsub_vv_ref<int32_t>, vsub_vv_i32_vec);
     }
+    
+    // vmerge_vvm
+    if (1) {
+        printf("\n*****vmerge_vvm test*****\n");
+        test_2src_op<bool, int64_t, int64_t, int64_t>(vmerge_vvm_ref<int64_t>, vmerge_vvm_vec<int64_t>);
+    }
+
+
     return 0;
 }

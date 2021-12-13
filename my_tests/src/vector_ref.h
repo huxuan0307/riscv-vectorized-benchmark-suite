@@ -356,3 +356,25 @@ void vsub_vv_i32_vec(int32_t* vd, int32_t* vs2, int32_t* vs1, int n) {
 
     FENCE();
 }
+
+template<typename Type>
+void vmerge_vvm_vec(Type* vd, Type* vs2, Type* vs1, bool* vm, int n);
+
+template<>
+void vmerge_vvm_vec<int64_t>(int64_t* vd, int64_t* vs2, int64_t* vs1, bool* vm, int n) {
+    int i;
+
+    long gvl = vsetvl_e64m1(n);
+    
+    for (i = 0; i < n;) {
+        gvl = vsetvl_e64m1(n - i);
+        _MMR_i64 v_vs1 = vle64_v_i64m1(&vs1[i], gvl);
+        _MMR_i64 v_vs2 = vle64_v_i64m1(&vs2[i], gvl);
+        vbool32_t v_vm = vle32_v_b32m1(&vm[i], gvl);
+        _MMR_i64 v_res = vmerge_vvm_i64m1(v_vm, v_vs1, v_vs2, gvl);
+        vse64_v_i64m1(&vd[i], v_res, gvl);
+        i += gvl;
+    }
+
+    FENCE();
+}

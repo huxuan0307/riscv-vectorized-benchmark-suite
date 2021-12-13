@@ -216,8 +216,8 @@ void vmul_vv_i32_ref(int32_t* vd, int32_t* vs2, int32_t* vs1, int n) {
 }
 
 // fixed-point other operation
-
-void vmerge_vvm_64_ref(double* vd, double* vs2, double* vs1, uint8_t* vm, int n) {
+template<typename Type>
+void vmerge_vvm_ref(Type* vd, Type* vs2, Type* vs1, bool* vm, int n) {
     int i;
     for (i=0; i<n; i++) {
         vd[i] = vm[i] ? vs1[i] : vs2[i];
