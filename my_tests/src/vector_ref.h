@@ -370,8 +370,8 @@ void vmerge_vvm_vec<int64_t>(int64_t* vd, int64_t* vs2, int64_t* vs1, bool* vm, 
         gvl = vsetvl_e64m1(n - i);
         _MMR_i64 v_vs1 = vle64_v_i64m1(&vs1[i], gvl);
         _MMR_i64 v_vs2 = vle64_v_i64m1(&vs2[i], gvl);
-        vbool32_t v_vm = vle32_v_i32m1(&vm[i], gvl);
-        _MMR_i64 v_res = vmerge_vvm_i64m1(v_vm, v_vs1, v_vs2, gvl);
+        vbool8_t v_vm = vle8_v_b8m1(&vm[i], gvl);
+        _MMR_i64 v_res = vmerge_vvm_i64m1(v_vm, v_vs2, v_vs1, gvl);
         vse64_v_i64m1(&vd[i], v_res, gvl);
         i += gvl;
     }
