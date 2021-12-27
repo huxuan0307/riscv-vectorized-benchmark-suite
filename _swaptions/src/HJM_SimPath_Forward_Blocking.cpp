@@ -21,7 +21,7 @@
 
 struct ParallelB {
   __volatile__ int l;
-   FTYPE **pdZ;
+  FTYPE **pdZ;
   FTYPE **randZ;
   int BLOCKSIZE;
   int iN;
@@ -48,7 +48,7 @@ struct ParallelB {
 
     for(b=begin; b!=end; b++) {
       for (j=1;j<=iN-1;++j){
-	pdZ[l][BLOCKSIZE*j + b]= CumNormalInv(randZ[l][BLOCKSIZE*j + b]);  /* 18% of the total executition time */
+	    pdZ[l][BLOCKSIZE*j + b]= CumNormalInv(randZ[l][BLOCKSIZE*j + b]);  /* 18% of the total executition time */
 	//fprintf(stderr,"%d (%d, %d): [%d][%d]=%e\n",pthread_self(), begin, end,  l,BLOCKSIZE*j+b,pdZ[l][BLOCKSIZE*j + b]);
       }
     }
@@ -62,45 +62,51 @@ struct ParallelB {
 
 void serialB(FTYPE **pdZ, FTYPE **randZ, int BLOCKSIZE, int iN, int iFactors)
 {
-
-
-
 #ifdef USE_RISCV_VECTOR
 
-    for(int l=0;l<=iFactors-1;++l){
-        for (int j=1;j<=iN-1;++j){
-            //for(int b=0; b<BLOCKSIZE; b+=BLOCKSIZE){
-          		// unsigned long int gvl = __builtin_epi_vsetvl(BLOCKSIZE, __epi_e64, __epi_m1);
-    			unsigned long int  gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
-                CumNormalInv_vector(&randZ[l][BLOCKSIZE*j /*+ b*/] , &pdZ[l][BLOCKSIZE*j/* + b*/] , gvl);
-            //}
-        }
+  for(int l=0;l<=iFactors-1;++l){
+    for (int j=1;j<=iN-1;++j){
+      unsigned long int  gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
+      CumNormalInv_vector(&randZ[l][BLOCKSIZE*j /*+ b*/] , &pdZ[l][BLOCKSIZE*j/* + b*/] , gvl);
     }
+  }
 	FENCE();
 
 #else
 
-    for(int l=0;l<=iFactors-1;++l){
-  		for (int j=1;j<=iN-1;++j){
-    		for(int b=0; b<BLOCKSIZE; b++){
-				pdZ[l][BLOCKSIZE*j + b]= CumNormalInv(randZ[l][BLOCKSIZE*j + b]);  /* 18% of the total executition time */
-//    			printf("CumNormalInv output: %f, input: %f\n",pdZ[l][BLOCKSIZE*j + b],randZ[l][BLOCKSIZE*j + b]);
-	      	}
-	    }
+  for(int l=0;l<=iFactors-1;++l){
+    for (int j=1;j<=iN-1;++j){
+      for(int b=0; b<BLOCKSIZE; b++){
+        pdZ[l][BLOCKSIZE*j + b]= CumNormalInv(randZ[l][BLOCKSIZE*j + b]);  /* 18% of the total executition time */
+      }
+    }
 	}
 
 #endif // USE_RISCV_VECTOR
 }
-
+/**
+ * @brief 
+ * 
+ * @param ppdHJMPath output
+ * @param iN 
+ * @param iFactors 
+ * @param dYears 
+ * @param pdForward input
+ * @param pdTotalDrift input
+ * @param ppdFactors input
+ * @param lRndSeed 
+ * @param BLOCKSIZE 
+ * @return int 
+ */
 int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores generated HJM path (Output)
-				 int iN,					//Number of time-steps
-				 int iFactors,			//Number of factors in the HJM framework
-				 FTYPE dYears,			//Number of years
-				 FTYPE *pdForward,		//t=0 Forward curve
-				 FTYPE *pdTotalDrift,	//Vector containing total drift corrections for different maturities
-				 FTYPE **ppdFactors,	//Factor volatilities
-				 long *lRndSeed,			//Random number seed
-				 int BLOCKSIZE)
+  int iN,					//Number of time-steps
+  int iFactors,			//Number of factors in the HJM framework
+  FTYPE dYears,			//Number of years
+  FTYPE *pdForward,		//t=0 Forward curve
+  FTYPE *pdTotalDrift,	//Vector containing total drift corrections for different maturities
+  FTYPE **ppdFactors,	//Factor volatilities
+  long *lRndSeed,			//Random number seed
+  int BLOCKSIZE)
 {	
 //This function computes and stores an HJM Path for given inputs
 
@@ -131,28 +137,28 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 #ifdef USE_RISCV_VECTOR
 
  //	unsigned long int gvl = __builtin_epi_vsetvl(BLOCKSIZE, __epi_e64, __epi_m1);
-   unsigned long int gvl =  gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
+  unsigned long int gvl =  gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
 	_MMR_f64 xZero;
 
 	xZero = _MM_SET_f64(0.0,gvl);
     //for(int b=0; b<BLOCKSIZE; b++){
-        for(j=0;j<=iN-1;j++) {
-            _MM_STORE_f64(&ppdHJMPath[0][BLOCKSIZE*j],_MM_SET_f64(pdForward[j],gvl),gvl);
-        	for(i=1;i<=iN-1;++i) {
-	      		_MM_STORE_f64(&ppdHJMPath[i][BLOCKSIZE*j],xZero,gvl);
-	    	} //initializing HJMPath to zero
-        }
+  for(j=0;j<=iN-1;j++) {
+    _MM_STORE_f64(&ppdHJMPath[0][BLOCKSIZE*j],_MM_SET_f64(pdForward[j],gvl),gvl);
+    for(i=1;i<=iN-1;++i) {
+      _MM_STORE_f64(&ppdHJMPath[i][BLOCKSIZE*j],xZero,gvl);
+    } //initializing HJMPath to zero
+  }
     //}
 	FENCE();
 #else
  	for(int b=0; b<BLOCKSIZE; b++){
-	  	for(j=0;j<=iN-1;j++){
-	    	ppdHJMPath[0][BLOCKSIZE*j + b] = pdForward[j]; 
+    for(j=0;j<=iN-1;j++){
+      ppdHJMPath[0][BLOCKSIZE*j + b] = pdForward[j]; 
 
-	    	for(i=1;i<=iN-1;++i){ 
-	      	ppdHJMPath[i][BLOCKSIZE*j + b]=0; 
-	      	} //initializing HJMPath to zero
-	  	}
+      for(i=1;i<=iN-1;++i){ 
+        ppdHJMPath[i][BLOCKSIZE*j + b]=0; 
+      } //initializing HJMPath to zero
+    }
 	}
 
 #endif
@@ -174,23 +180,23 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 
 #ifdef USE_RISCV_VECTOR
 
- 		RanUnif_vector( lRndSeed ,iFactors , iN ,BLOCKSIZE , randZ);
+  RanUnif_vector( lRndSeed ,iFactors , iN ,BLOCKSIZE , randZ);
 
 #else
 
-        // =====================================================
-        // sequentially generating random numbers
+  // =====================================================
+  // sequentially generating random numbers
 
-        for(int b=0; b<BLOCKSIZE; b++){
-          for(int s=0; s<1; s++){
-            for (j=1;j<=iN-1;++j){
-              for (l=0;l<=iFactors-1;++l){
-                //compute random number in exact same sequence
-                randZ[l][BLOCKSIZE*j + b + s] = RanUnif(lRndSeed);  /* 10% of the total executition time */
-              }
-            }
-          }
+  for(int b=0; b<BLOCKSIZE; b++){
+    for(int s=0; s<1; s++){
+      for (j=1;j<=iN-1;++j){
+        for (l=0;l<=iFactors-1;++l){
+          //compute random number in exact same sequence
+          randZ[l][BLOCKSIZE*j + b + s] = RanUnif(lRndSeed);  /* 10% of the total executition time */
         }
+      }
+    }
+  }
 #endif
 
 //#ifdef USE_RISCV_VECTOR
@@ -239,25 +245,25 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 	//gvl = __builtin_epi_vsetvl(BLOCKSIZE, __epi_e64, __epi_m1);
 	gvl = vsetvl_e64m1(BLOCKSIZE); //PLCT
 
-    _MMR_f64 xdTotalShock;
+  _MMR_f64 xdTotalShock;
 
 	//for(int b=0; b<BLOCKSIZE; b++){ // b is the blocks
-	  for (j=1;j<=iN-1;++j) {// j is the timestep
+  for (j=1;j<=iN-1;++j) {// j is the timestep
 
-	    for (l=0;l<=iN-(j+1);++l){ // l is the future steps
-	      xdTotalShock = _MM_SET_f64(0.0,gvl);
-	      /// @todo vectorize
-		  pdDriftxddelt = pdTotalDrift[l]*ddelt;	
+    for (l=0;l<=iN-(j+1);++l){ // l is the future steps
+      xdTotalShock = _MM_SET_f64(0.0,gvl);
+      /// @todo vectorize
+      pdDriftxddelt = pdTotalDrift[l]*ddelt;	
 
-	      for (i=0;i<=iFactors-1;++i){// i steps through the stochastic factors
-		xdTotalShock = _MM_ADD_f64(xdTotalShock, _MM_MUL_f64(_MM_SET_f64(ppdFactors[i][l],gvl), _MM_LOAD_f64(&pdZ[i][BLOCKSIZE*j],gvl),gvl),gvl);
-	      }
+      for (i=0;i<=iFactors-1;++i){// i steps through the stochastic factors
+        xdTotalShock = _MM_ADD_f64(xdTotalShock, _MM_MUL_f64(_MM_SET_f64(ppdFactors[i][l],gvl), _MM_LOAD_f64(&pdZ[i][BLOCKSIZE*j],gvl),gvl),gvl);
+      }
 
-	      _MM_STORE_f64(&(ppdHJMPath[j][BLOCKSIZE*l]), _MM_ADD_f64(_MM_LOAD_f64(&ppdHJMPath[j-1][BLOCKSIZE*(l+1)],gvl),_MM_ADD_f64(_MM_SET_f64(pdDriftxddelt,gvl),_MM_MUL_f64(_MM_SET_f64(sqrt_ddelt,gvl),xdTotalShock,gvl),gvl),gvl),gvl);
-	      //as per formula
-	    }
-	  }
-	  FENCE();
+      _MM_STORE_f64(&(ppdHJMPath[j][BLOCKSIZE*l]), _MM_ADD_f64(_MM_LOAD_f64(&ppdHJMPath[j-1][BLOCKSIZE*(l+1)],gvl),_MM_ADD_f64(_MM_SET_f64(pdDriftxddelt,gvl),_MM_MUL_f64(_MM_SET_f64(sqrt_ddelt,gvl),xdTotalShock,gvl),gvl),gvl),gvl);
+      //as per formula
+    }
+  }
+  FENCE();
 	//} // end Blocks
 
 #else
@@ -270,7 +276,7 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 	      dTotalShock = 0;
 	      
 	      for (i=0;i<=iFactors-1;++i){// i steps through the stochastic factors
-		dTotalShock += ppdFactors[i][l]* pdZ[i][BLOCKSIZE*j + b];		  		
+		      dTotalShock += ppdFactors[i][l]* pdZ[i][BLOCKSIZE*j + b];		  		
 	      }	      	   
 
 	      ppdHJMPath[j][BLOCKSIZE*l+b] = ppdHJMPath[j-1][BLOCKSIZE*(l+1)+b]+ pdTotalDrift[l]*ddelt + sqrt_ddelt*dTotalShock;

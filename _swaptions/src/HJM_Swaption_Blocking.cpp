@@ -125,18 +125,16 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
   iSwapTimePoints = (int) (dTenor/ddelt + 0.5);			//Total HJM time points corresponding to the swap's tenor
   dSwapVectorYears = (FTYPE) (iSwapVectorLength*ddelt);
 
-
-
   //now we store the swap payoffs in the swap payoff vector
   for (i=0;i<=iSwapVectorLength-1;++i)
     pdSwapPayoffs[i] = 0.0; //initializing to zero
   for (i=iFreqRatio;i<=iSwapTimePoints;i+=iFreqRatio)
-    {
-      if(i != iSwapTimePoints)
-	pdSwapPayoffs[i] = exp(dStrikeCont*dPaymentInterval) - 1; //the bond pays coupon equal to this amount
-      if(i == iSwapTimePoints)
-	pdSwapPayoffs[i] = exp(dStrikeCont*dPaymentInterval); //at terminal time point, bond pays coupon plus par amount
-    }
+  {
+    if(i != iSwapTimePoints)
+      pdSwapPayoffs[i] = exp(dStrikeCont*dPaymentInterval) - 1; //the bond pays coupon equal to this amount
+    if(i == iSwapTimePoints)
+      pdSwapPayoffs[i] = exp(dStrikeCont*dPaymentInterval); //at terminal time point, bond pays coupon plus par amount
+  }
 
   //generating forward curve at t=0 from supplied yield curve
   iSuccess = HJM_Yield_to_Forward(pdForward, iN, pdYield);
@@ -160,7 +158,7 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
       //For each trial a new HJM Path is generated
       iSuccess = HJM_SimPath_Forward_Blocking(ppdHJMPath, iN, iFactors, dYears, pdForward, pdTotalDrift,ppdFactors, iRndSeed, BLOCKSIZE_AUX); /* GC: 51% of the time goes here */
       if (iSuccess!=1)
-	     return iSuccess;
+	      return iSuccess;
     
       //now we compute the discount factor vector
 
