@@ -6,6 +6,15 @@
 #include <time.h>
 #include <sys/time.h>
 
+#define __HX_DEBUG__
+
+#ifdef __HX_DEBUG__
+#define Debug printf
+#else
+#define Debug /##/ //
+#endif
+
+
 
 FTYPE RanUnif( long *s );
 void RanUnif_vector( long *s , int iFactors , int iN ,int  BLOCKSIZE, FTYPE **randZ);
