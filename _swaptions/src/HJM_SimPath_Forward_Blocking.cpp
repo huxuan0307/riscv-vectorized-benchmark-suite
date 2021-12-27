@@ -163,6 +163,14 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 
 #endif
 
+  Debug("ppdHJMPath: {\n");
+  for (int ii=0; ii<iFactors; ii++) {
+    for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
+      Debug("%.10f\n", ppdHJMPath[ii][jj]);
+    }
+  }
+  Debug("}\n");
+
 	// -----------------------------------------------------
 //#ifdef USE_RISCV_VECTOR
     // gettimeofday(&tv2_0, &tz_0);
@@ -197,6 +205,15 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
       }
     }
   }
+
+  Debug("randZ: {\n");
+  for (int ii=0; ii<iFactors; ii++) {
+    for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
+      Debug("%.10f\n", randZ[ii][jj]);
+    }
+  }
+  Debug("}\n");
+
 #endif
 
 //#ifdef USE_RISCV_VECTOR
@@ -222,8 +239,15 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 #else
 	/* 18% of the total executition time */
 	serialB(pdZ, randZ, BLOCKSIZE, iN, iFactors);
-#endif
 
+#endif
+  Debug("pdZ: {\n");
+  for (int ii=0; ii<iFactors; ii++) {
+    for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
+      Debug("%.10f\n", pdZ[ii][jj]);
+    }
+  }
+  Debug("}\n");
 
 //#ifdef USE_RISCV_VECTOR
     // gettimeofday(&tv2_0, &tz_0);
@@ -287,6 +311,13 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 	// -----------------------------------------------------
 #endif
 
+  Debug("ppdHJMPath: {\n");
+  for (int ii=0; ii<iFactors; ii++) {
+    for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
+      Debug("%.10f\n", ppdHJMPath[ii][jj]);
+    }
+  }
+  Debug("}\n");
 //#ifdef USE_RISCV_VECTOR
     // gettimeofday(&tv2_0, &tz_0);
     // elapsed0 = (double) (tv2_0.tv_sec-tv1_0.tv_sec) + (double) (tv2_0.tv_usec-tv1_0.tv_usec) * 1.e-6; 
