@@ -206,16 +206,14 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
     }
   }
 
-  Debug("randZ: {\n");
-  for (int ii=0; ii<iFactors; ii++) {
-    for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
-      Debug("%.10f\n", randZ[ii][jj]);
-    }
-  }
-  Debug("}\n");
-
 #endif
-
+Debug("randZ: {\n");
+for (int ii=0; ii<iFactors; ii++) {
+  for (int jj=0; jj<iN*BLOCKSIZE; jj++) {
+    Debug("%.10f\n", randZ[ii][jj]);
+  }
+}
+Debug("}\n");
 //#ifdef USE_RISCV_VECTOR
     // gettimeofday(&tv2_0, &tz_0);
     // elapsed0 = (double) (tv2_0.tv_sec-tv1_0.tv_sec) + (double) (tv2_0.tv_usec-tv1_0.tv_usec) * 1.e-6; 
