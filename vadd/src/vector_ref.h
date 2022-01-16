@@ -364,9 +364,9 @@ void vadd_vv_i16_vec(int16_t* vd, int16_t* vs2, int16_t* vs1, int n) {
     
     for (i = 0; i < n;) {
         gvl = vsetvl_e16m1(n - i);
-        _MMR_i16 v_vs1 = vle32_v_i16m1(&vs1[i], gvl);
-        _MMR_i16 v_vs2 = vle32_v_i16m1(&vs2[i], gvl);
-        _MMR_i16 v_res = vadd_vv_i16m1(v_vs2, v_vs1, gvl);
+        vint16m1_t v_vs1 = vle16_v_i16m1(&vs1[i], gvl);
+        vint16m1_t v_vs2 = vle16_v_i16m1(&vs2[i], gvl);
+        vint16m1_t v_res = vadd_vv_i16m1(v_vs2, v_vs1, gvl);
         vse32_v_i16m1(&vd[i], v_res, gvl);
         i += gvl;
     }
@@ -381,9 +381,9 @@ void vadd_vv_i8_vec(int8_t* vd, int8_t* vs2, int8_t* vs1, int n) {
     
     for (i = 0; i < n;) {
         gvl = vsetvl_e8m1(n - i);
-        _MMR_i8 v_vs1 = vle8_v_i8m1(&vs1[i], gvl);
-        _MMR_i8 v_vs2 = vle8_v_i8m1(&vs2[i], gvl);
-        _MMR_i8 v_res = vadd_vv_i8m1(v_vs2, v_vs1, gvl);
+        vint8m1_t v_vs1 = vle8_v_i8m1(&vs1[i], gvl);
+        vint8m1_t v_vs2 = vle8_v_i8m1(&vs2[i], gvl);
+        vint8m1_t v_res = vadd_vv_i8m1(v_vs2, v_vs1, gvl);
         vse8_v_i8m1(&vd[i], v_res, gvl);
         i += gvl;
     }
